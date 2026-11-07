@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import { useGetBookByIdQuery } from '@aks/store/booksApi'
 import logoImg from '@aks/assets/logo.webp'
 import BookDetailSkeleton from '@aks/components/BookDetailSkeleton'
@@ -17,14 +17,19 @@ import {
 
 export default function BookDetail() {
   const { id } = useParams()
-  const { data: book, isLoading, isError, refetch } = useGetBookByIdQuery(id)
+  const location = useLocation()
+  const initialBook = location.state?.book
+
+  const { data: fetchedBook, isLoading, isError, refetch } = useGetBookByIdQuery(id)
   const [imgError, setImgError] = useState(false)
 
-  if (isLoading) {
+  const book = fetchedBook || initialBook
+
+  if (!book && isLoading) {
     return <BookDetailSkeleton />
   }
 
-  if (isError || !book) {
+  if (!book && isError) {
     return (
       <div className="min-h-screen bg-[#FFFDF9] flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white p-8 rounded-3xl border border-stone-200/80 text-center shadow-xs">
