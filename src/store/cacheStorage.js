@@ -1,6 +1,6 @@
 const CACHE_PREFIX = 'gutendex_cache_'
 const MAX_ENTRIES = 200
-const TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
+const TTL_MS = 24 * 60 * 60 * 1000
 
 export function getPersistentCache(key) {
   try {
