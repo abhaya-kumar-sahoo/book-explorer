@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { usePrefetch } from '@aks/store/booksApi'
 import { BookOpenIcon, DownloadArrowIcon, GlobeIcon } from '@aks/assets/icons'
 
 export default function BookCard({ book }) {
   const [imgError, setImgError] = useState(false)
-  const prefetchBook = usePrefetch('getBookById')
 
   const coverUrl =
     book.formats?.['image/jpeg'] ||
@@ -23,8 +21,6 @@ export default function BookCard({ book }) {
     <Link
       to={`/book/${book.id}`}
       state={{ book }}
-      onMouseEnter={() => prefetchBook(book.id)}
-      onTouchStart={() => prefetchBook(book.id)}
       className="group flex flex-col bg-white rounded-lg border border-[#E7E5E4] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(234,88,12,0.30)] hover:border-orange-300 transition-all duration-300 overflow-hidden"
     >
       <div className="relative aspect-square w-full  flex items-center justify-center overflow-hidden">
