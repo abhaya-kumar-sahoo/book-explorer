@@ -24,7 +24,7 @@ const persistentBaseQuery = async (args, api, extraOptions) => {
 export const booksApi = createApi({
   reducerPath: 'booksApi',
   baseQuery: persistentBaseQuery,
-  keepUnusedDataFor: 86400 * 30,
+  keepUnusedDataFor: 86400, // 24 hours
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: ({ search, languages, topic, sort, page }) => {
@@ -38,11 +38,11 @@ export const booksApi = createApi({
         const qs = params.toString()
         return qs ? `books/?${qs}` : 'books/'
       },
-      keepUnusedDataFor: 86400 * 30,
+      keepUnusedDataFor: 86400,
     }),
     getBookById: builder.query({
       query: (id) => `books/${id}/`,
-      keepUnusedDataFor: 86400 * 365,
+      keepUnusedDataFor: 86400,
     }),
   }),
 })
