@@ -1,0 +1,10 @@
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+# Single-page application redirect for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
