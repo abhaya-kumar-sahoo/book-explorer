@@ -8,7 +8,6 @@ export function getPersistentCache(key) {
     if (!raw) return null
 
     const record = JSON.parse(raw)
-    // Check if cache has expired (older than 24 hours)
     if (!record?.timestamp || Date.now() - record.timestamp > TTL_MS) {
       localStorage.removeItem(`${CACHE_PREFIX}${key}`)
       return null
@@ -43,7 +42,7 @@ export function setPersistentCache(key, data) {
 
     localStorage.setItem(`${CACHE_PREFIX}${key}`, JSON.stringify(record))
   } catch {
-    // Quota reached or private mode, fail silently
+    console.log("Failed to set cache")
   }
 }
 
